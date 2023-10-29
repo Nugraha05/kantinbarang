@@ -1,0 +1,5 @@
+# kantinbarang
+
+- python
+- django
+- sqlite
