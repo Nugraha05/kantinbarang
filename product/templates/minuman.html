@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplikasi BookReview"/>
+    <meta name="keywords" content="book review,katalog buku"/>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"></script> -->
+
+    <title>Menu Minuman</title>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'makanan' %}">Makanan</a>
+        <a href="{% url 'minuman' %}">Minuman</a>
+        <a href="{% url 'pesanan' %}">Pesanan</a>
+        
+            <form action="">
+                <div class="mb-3">
+                    <label class="form-label">Cari Minuman:</label>
+                    <input type="text" name="nama" class="form-control" placeholder="tes"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            {% if searchMinum %}Pencarian untuk <strong>{{ searchMinum }}</strong>{% endif %}
+                <br/>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                    {% for data in datas %}
+
+                        {% if data.type == "0" and data.tersedia == "1" %}
+
+                            <div class="col">
+                                <div class="card">
+                                <img alt="" class="card-img-top" src="{{ data.gambar.url }}"/>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">{{ data.nama }}</h5>
+                                        <p class="card-text">
+                                        Stock : {{ data.stok }}
+                                        <br/>
+
+                                            {% if data.stok == 0 %}
+                                                    
+                                                    <h5 class="card-title fw-bold">Habis</h5>
+                                                
+                                                {% else %}
+
+                                                    <a href="{% url 'detail' data.id %}">
+                                                        <h5 class="card-title fw-bold">Detail</h5>
+                                                    </a>
+
+                                            {% endif %}
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+    </div>
+</body>
+</html>
